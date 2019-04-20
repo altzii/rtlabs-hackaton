@@ -1,4 +1,4 @@
-package ru.rtlabs.patientsservice.service;
+package ru.rtlabs.hackaton.service;
 
 public class PatientServiceImpl implements PatientService {
 }

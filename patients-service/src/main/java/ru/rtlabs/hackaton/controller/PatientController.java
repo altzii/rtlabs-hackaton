@@ -1,17 +1,16 @@
-package ru.rtlabs.patientsservice.controller;
+package ru.rtlabs.hackaton.controller;
 
 
-import org.apache.catalina.LifecycleState;
-import org.hl7.fhir.dstu3.model.HumanName;
-import org.hl7.fhir.dstu3.model.Patient;
-import org.hl7.fhir.dstu3.model.Reference;
+import org.hl7.fhir.dstu3.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.rtlabs.patientsservice.repository.PatientRepository;
+import ru.rtlabs.hackaton.repository.PatientRepository;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @CrossOrigin(origins = {"http://localhost:3000", "*"})
@@ -42,23 +41,23 @@ public class PatientController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public Patient create(@RequestBody Patient patient) {
         logger.info(">>>>> Creating Patient:" + patient.getId() + ":" + patient.getName());
-        return repository.save((Patient) patient);
+        return repository.save(patient);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
     public Patient update(@PathVariable("id") String id, @RequestBody Patient patient) {
 
-        Patient ss = new Patient();
-        ss.setId("sdaSDSWDFSDG");
-        ss.setBirthDate(new Date());
+
         Patient update = new Patient();
-        update.setId(ss.getId());
-        update.setName(ss.getName());
-        update.setManagingOrganization(new Reference())
-        update.setGender(ss.getGender());
-        update.setBirthDate(ss.getBirthDate());
-        logger.info(">>>>> Updating Patient:" + ss.getId() + ":" + ss.getName());
-        return repository.save((Patient) update);
+        update.setId("1");
+        List<HumanName> names = new ArrayList<>();
+        names.add(new HumanName().setText("Alexander"));
+        update.setName(names);
+        update.setManagingOrganization(new Reference());
+        update.setGender(Enumerations.AdministrativeGender.MALE);
+        update.setBirthDate(new Date());
+        logger.info(">>>>> Updating Patient:" + update.getId());
+        return repository.save(update);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

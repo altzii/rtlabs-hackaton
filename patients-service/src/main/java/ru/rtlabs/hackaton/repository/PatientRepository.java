@@ -1,4 +1,4 @@
-package ru.rtlabs.patientsservice.repository;
+package ru.rtlabs.hackaton.repository;
 
 import org.hl7.fhir.dstu3.model.Patient;
 import org.springframework.data.mongodb.repository.MongoRepository;
