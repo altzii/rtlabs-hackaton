@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>ru.rtlabs</groupId>
+    <groupId>ru.rtlabs.hackaton</groupId>
     <artifactId>registry-service</artifactId>
-    <version>0.1</version>
+    <version>0.1-SNAPSHOT</version>
     <name>registry-service</name>
 
     <properties>
