@@ -7,7 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PatientRepository extends MongoRepository<Patient,String> {
-    Optional<Patient> findById(String id);
+public interface PatientRepository extends MongoRepository<Patient, String> {
+
+    Optional<Patient> findByIdMyUnqualifiedId(String id);
+
+    Optional<Patient> deleteByIdMyUnqualifiedId(String id);
 
 }
