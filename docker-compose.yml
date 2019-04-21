@@ -17,24 +17,19 @@ services:
       #      SPRING_APPLICATION_NAME: message-service
       #      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       #      SPRING_PROFILES_ACTIVE: enableEureka
-#  mongod:
-##      restart: always
-#    image: mongo:latest
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=fhir
-#      - MONGO_INITDB_ROOT_PASSWORD=fhir
-#      - MONGODB_USERNAME=fhir
-#      - MONGODB_PASSWORD=fhir
-#      - MONGODB_DATABASE=fhir
-##    environment:
-##       - MONGO_DATA_DIR=/data/db
-##       - MONGO_LOG_DIR=/dev/null
-##       - MONGODB_USER=fhir
-##       - MONGODB_PASS=fhir
-#    volumes:
-#      - ./data/db:/data/db
-#    ports:
-#      - 27017:27017
+  db:
+#      restart: always
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=fhir
+      - MONGO_INITDB_ROOT_PASSWORD=fhir
+      - MONGODB_USERNAME=fhir
+      - MONGODB_PASSWORD=fhir
+      - MONGODB_DATABASE=fhir
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
 #    command: mongod --smallfiles --logpath=/dev/null
 
   patients-service:
@@ -48,7 +43,7 @@ services:
       - 8002:8002
     depends_on:
       - registry-service
-#      - mongod
+      - db
     environment:
       #      SPRING_APPLICATION_NAME: message-service
       #      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
@@ -109,6 +104,23 @@ services:
 #      - mongod
     environment:
       SPRING_APPLICATION_NAME: observation-service
+      #      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      #      SPRING_PROFILES_ACTIVE: enableEureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-service:8001/eureka/
+
+  superhero-detection-service:
+    image: superhero-detection-service-1.0:latest
+    restart: always
+    hostname: localhost
+    expose:
+      - 8005
+    ports:
+      - 8005:8005
+    depends_on:
+      - registry-service
+      - db
+    environment:
+      SPRING_APPLICATION_NAME: superhero-detection-service
       #      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       #      SPRING_PROFILES_ACTIVE: enableEureka
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-service:8001/eureka/

@@ -20,3 +20,7 @@ cd ../observation-service
 
 ./build-docker.sh
 
+cd ../superhero-detection-service
+
+./build-docker.sh
+
