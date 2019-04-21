@@ -1,7 +1,6 @@
 package ru.rtlabs.hackaton.service;
 
 import org.hl7.fhir.dstu3.model.*;
-import org.hl7.fhir.dstu3.model.codesystems.DiagnosticReportStatus;
 import org.hl7.fhir.exceptions.FHIRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
