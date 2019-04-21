@@ -1,5 +1,6 @@
 package ru.rtlabs.hackaton.service;
 
+import ca.uhn.fhir.model.primitive.IdDt;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import java.util.UUID;
 
 @Service
 public class PatientServiceImpl implements PatientService {
+
+    private final static String PATIENT_RESOURCE_NAME = "Patient";
 
     private final PatientRepository patientRepository;
 
@@ -32,7 +35,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient save(Patient patient) {
-        patient.setId(UUID.randomUUID().toString());
+        UUID uid = UUID.randomUUID();
+        String idPart = new IdDt(uid.toString()).getValue();
+        patient.setId(PATIENT_RESOURCE_NAME + '/' + idPart);
         return patientRepository.save(patient);
     }
 
