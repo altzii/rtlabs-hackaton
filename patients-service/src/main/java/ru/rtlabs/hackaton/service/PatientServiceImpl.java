@@ -32,6 +32,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient save(Patient patient) {
+        patient.setId(UUID.randomUUID().toString());
         return patientRepository.save(patient);
     }
 
