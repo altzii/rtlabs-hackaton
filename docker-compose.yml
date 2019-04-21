@@ -45,6 +45,7 @@ services:
       - registry-service
       - db
     environment:
+      SPRING_DATA_MONGODB_DATABASE: admin
       #      SPRING_APPLICATION_NAME: message-service
       #      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       #      SPRING_PROFILES_ACTIVE: enableEureka
