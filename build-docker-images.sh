@@ -11,3 +11,7 @@ cd ../gateway-service
 cd ../registry-service
 
 ./build-docker.sh
+
+cd ../observation-service
+
+./build-docker.sh
