@@ -15,10 +15,9 @@ import java.util.UUID;
 @RequestMapping("/observation")
 public class ObservationController {
 
-    public static final String SERVICE_PATIENT_SUPERHERO = "http://localhost:8080/superhero-detection-service/patient/superhero";
+    private static final String SUPERHERO_DETECTION_SERVICE = "http://localhost:8080/superhero-detection-service/patient/superhero";
     private final ObservationService observationService;
     private final RestTemplate restTemplate;
-
 
     @Autowired
     public ObservationController(ObservationService observationService, RestTemplate restTemplate) {
@@ -42,14 +41,14 @@ public class ObservationController {
 
     @PostMapping(produces = "application/json", consumes = "application/json")
     public Observation create(@RequestBody Observation observation) {
-        restTemplate.postForEntity(SERVICE_PATIENT_SUPERHERO, observation, Observation.class);
+        restTemplate.postForEntity(SUPERHERO_DETECTION_SERVICE, observation, Observation.class);
         observation.setId(UUID.randomUUID().toString());
         return observationService.save(observation);
     }
 
     @PutMapping(value = "/{id}")
     public Observation update(@PathVariable("id") String id, @RequestBody Observation observation) {
-        restTemplate.postForEntity(SERVICE_PATIENT_SUPERHERO, observation, Observation.class);
+        restTemplate.postForEntity(SUPERHERO_DETECTION_SERVICE, observation, Observation.class);
         return observationService.update(id, observation);
     }
 

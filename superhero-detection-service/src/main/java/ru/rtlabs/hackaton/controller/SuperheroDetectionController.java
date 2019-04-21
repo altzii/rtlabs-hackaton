@@ -20,7 +20,6 @@ public class SuperheroDetectionController {
         this.superheroDetectionService = superheroDetectionService;
     }
 
-
     @PostMapping(produces = "application/json", consumes = "application/json")
     public void superHeroDetectionAndUpdate(@RequestBody Observation observation) throws FHIRException {
         superheroDetectionService.superHeroDetectionAndUpdate(observation);
