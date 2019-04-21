@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.rtlabs.hackaton.repository.PatientRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PatientServiceImpl implements PatientService {
