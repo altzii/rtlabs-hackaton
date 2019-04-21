@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.rtlabs.hackaton.repository.PatientRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PatientServiceImpl implements PatientService {
@@ -31,6 +32,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient save(Patient patient) {
+        patient.setId(UUID.randomUUID().toString());
         return patientRepository.save(patient);
     }
 
