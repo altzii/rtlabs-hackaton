@@ -15,7 +15,7 @@ import java.util.UUID;
 @RequestMapping("/observation")
 public class ObservationController {
 
-    private static final String SUPERHERO_DETECTION_SERVICE = "http://localhost:8080/superhero-detection-service/patient/superhero";
+    private static final String SUPERHERO_DETECTION_SERVICE = "http://localhost:8080/superhero-detection-service/superhero";
     private final ObservationService observationService;
     private final RestTemplate restTemplate;
 
