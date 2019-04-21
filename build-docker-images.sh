@@ -4,14 +4,19 @@ cd registry-service
 
 ./build-docker.sh
 
+cd ../diagnosis-service
+
+./build-docker.sh
+
 cd ../gateway-service
 
 ./build-docker.sh
 
-cd ../registry-service
+cd ../patients-service
 
 ./build-docker.sh
 
 cd ../observation-service
 
 ./build-docker.sh
+

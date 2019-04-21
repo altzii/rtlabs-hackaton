@@ -14,6 +14,7 @@
     <artifactId>patients-service</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>patients-service</name>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -25,12 +26,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <dependency>

@@ -1,2 +1,2 @@
-docker build -t gateway_service-1.0 .
+docker build -t gateway-service-1.0 .
 

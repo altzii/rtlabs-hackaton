@@ -1,43 +1,93 @@
 version: '3'
 services:
-
   registry-service:
     image: registry-service-1.0:latest
+    hostname: localhost
 #    restart: always
+    expose:
+      - 8001
     ports:
       - 8001:8001
-    environment:
-#      SPRING_APPLICATION_NAME: eureka
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+#    environment:
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-service:8761/eureka/
+      #      SPRING_APPLICATION_NAME: message-service
+      #      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      #      SPRING_PROFILES_ACTIVE: enableEureka
+#  mongod:
+##      restart: always
+#    image: mongo:latest
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=fhir
+#      - MONGO_INITDB_ROOT_PASSWORD=fhir
+#      - MONGODB_USERNAME=fhir
+#      - MONGODB_PASSWORD=fhir
+#      - MONGODB_DATABASE=fhir
+##    environment:
+##       - MONGO_DATA_DIR=/data/db
+##       - MONGO_LOG_DIR=/dev/null
+##       - MONGODB_USER=fhir
+##       - MONGODB_PASS=fhir
+#    volumes:
+#      - ./data/db:/data/db
+#    ports:
+#      - 27017:27017
+#    command: mongod --smallfiles --logpath=/dev/null
 
-  papients-service:
-    image: papients-service-1.0:latest
+  patients-service:
+    image: patients-service-1.0:latest
     restart: always
     hostname: localhost
+
     expose:
       - 8002
     ports:
       - 8002:8002
     depends_on:
-      - eureka
-
+      - registry-service
+#      - mongod
     environment:
-      SPRING_APPLICATION_NAME: message-service
+      #      SPRING_APPLICATION_NAME: message-service
       #      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       #      SPRING_PROFILES_ACTIVE: enableEureka
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:7777/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-service:8001/eureka/
 
+  diagnosis-service:
+    image: diagnosis-service-1.0:latest
+    restart: always
+    hostname: localhost
+
+    expose:
+      - 8003
+    ports:
+      - 8003:8003
+    depends_on:
+      - registry-service
+#      - mongod
+
+    environment:
+      SPRING_APPLICATION_NAME: diagnosis-service
+      #      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      #      SPRING_PROFILES_ACTIVE: enableEureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-service:8001/eureka/
 
   gateway-service:
     image: gateway-service-1.0:latest
-
-    #    restart: always
+#    restart: always
     expose:
-      - 8889
+      - 8080
     ports:
       - 8080:8080
-
-    environment:
-      SPRING_APPLICATION_NAME: gateway-service
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+#
+#    environment:
+#      SPRING_APPLICATION_NAME: gateway-service
       #EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
 #      SPRING_PROFILES_ACTIVE: enableEureka
 #      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:7777/eureka/
@@ -45,3 +95,20 @@ services:
 #      ZUUL_ROUTES_MESSAGE_SERVICE_URL: http://localhost:9080
 #      ZUUL_ROUTES_REGISTRY_URL: http://localhost:7777
 #      ZUUL_PREFIX: /services
+
+  observation-service:
+    image: observation-service-1.0:latest
+    restart: always
+    hostname: localhost
+    expose:
+      - 8004
+    ports:
+      - 8004:8004
+    depends_on:
+      - registry-service
+#      - mongod
+    environment:
+      SPRING_APPLICATION_NAME: observation-service
+      #      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      #      SPRING_PROFILES_ACTIVE: enableEureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://registry-service:8001/eureka/
